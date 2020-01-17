@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="bg--secondary space--sm">
+    <div class="container">
+        <div class="row">
+            {% include 'accounts/profile-directory.html' %}
+            <div class="col-lg-8">
+                <div class="boxed boxed--lg boxed--border">
+                    <div id="account-profile" class="account-tab">
+                        <h4>Profile</h4>
+                        <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="col-lg-3 col-md-4 mt-4">
+                            <button type="submit" class="btn btn--primary type--uppercase">Save Profile</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end of row-->
+    </div>
+    <!--end of container-->
+</section>
+
+{% endblock %}

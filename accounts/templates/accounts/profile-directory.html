@@ -1,0 +1,28 @@
+<div class="col-lg-4">
+    <div class="boxed boxed--lg boxed--border">
+        <div class="text-block text-center">
+            <img alt="avatar" src="{{ user.userprofile.default_image }}" class="image--sm" />
+            <span class="h5">{{user.username}}</span>
+            {% if user.is_staff or user.is_superuser %}
+            <span>Moderator</span>
+            {% else %}
+            <span>Member</span>
+            {% endif %}
+            
+        </div>
+        <hr>
+        <div class="text-block">
+            <ul class="menu-vertical">
+                <li>
+                    <a href="{% url 'profile' %}">Profile</a>
+                </li>
+                <li>
+                    <a href="{% url 'password_change' %}">Password</a>
+                </li>
+                <li>
+                    <a href="{% url 'account_delete' %}">Delete Account</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

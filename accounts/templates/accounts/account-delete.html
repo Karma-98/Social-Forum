@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="bg--secondary space--sm">
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-lg-8 mx-auto">
+                <div class="boxed boxed--lg boxed--border">
+                    
+                    <div id="account-password" class="account-tab">
+                        <h4>Account Deletion</h4>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <p>Are you sure you want to delete "{{ user }}"?</p>
+                                <input type="submit" class="btn btn--primary" value="Confirm">
+                            </div>
+                        </form>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+        <!--end of row-->
+    </div>
+    <!--end of container-->
+</section>
+
+{% endblock %}

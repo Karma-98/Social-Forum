@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="bg--secondary space--sm">
+    <div class="container">
+        <div class="row">
+            {% include 'accounts/other_profile_directory.html' %}
+            <div class="col-lg-8">
+                <div class="boxed boxed--lg boxed--border">
+                    <div id="account-profile" class="account-tab">
+                        <h4>Profile</h4>
+                        <p>Username:<br>{{user.username}}</p>
+                        <p>First Name:<br>{{user.first_name}}</p>
+                        <p>Last Name:<br>{{user.last_name}}</p>
+                        <p>Email:<br>{{user.email}}</p>
+                        <p>Bio:<br>{{user.userprofile.bio}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end of row-->
+    </div>
+    <!--end of container-->
+</section>
+
+{% endblock %}

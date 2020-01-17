@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<section class="container-fluid">
+    <div class="mb-5">
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <h3 class="mb-3">{{ threaddetail.title }} &nbsp; <span class="mx-3">{{ threaddetail.created_at }}</span> <span><a href="{% url 'other_profile' threaddetail.user.userprofile.slug %}">{{ threaddetail.user }}</a></span></h3>
+                <p>{{ threaddetail.text }}</p>
+            </div>
+        </div>
+    </div>
+
+    {% for comment in comments.all %}
+    <div class="boxed boxed--lg boxed--border">
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <p>{{ comment.text }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+
+{% if user.is_authenticated %}
+<section class="container">
+    <div class="modal-instance">
+        <a class="btn modal-trigger" href="#">
+            <span class="btn__text">
+                TRIGGER MODAL
+            </span>
+        </a>
+        <div class="modal-container">
+            <div class="modal-content">
+                <div class="boxed boxed--lg">
+                    <h2>New Comment</h2>
+                    <hr class="short">
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn--primary type--uppercase">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}
