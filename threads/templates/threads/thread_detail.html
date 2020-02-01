@@ -7,7 +7,16 @@
     <div class="mb-5">
         <div class="row">
             <div class="col-md-10 mx-auto">
-                <h3 class="mb-3">{{ threaddetail.title }} &nbsp; <span class="mx-3">{{ threaddetail.created_at }}</span> <span><a href="{% url 'other_profile' threaddetail.user.userprofile.slug %}">{{ threaddetail.user }}</a></span></h3>
+                <h3 class="mb-3">{{ threaddetail.title }} &nbsp; 
+                    <span class="mx-3">{{ threaddetail.created_at }}</span> 
+                    <span>
+                        {% if threaddetail.user != user %}
+                        <a href="{% url 'other_profile' threaddetail.user.userprofile.slug %}">{{ threaddetail.user }}</a>
+                        {% else %} 
+                        {{ threaddetail.user }} 
+                        {% endif %}
+                    </span>
+                </h3>
                 <p>{{ threaddetail.text }}</p>
             </div>
         </div>

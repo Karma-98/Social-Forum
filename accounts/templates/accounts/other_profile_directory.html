@@ -1,9 +1,9 @@
 <div class="col-lg-4">
     <div class="boxed boxed--lg boxed--border">
         <div class="text-block text-center">
-            <img alt="avatar" src="{{ user.userprofile.default_image }}" class="image--sm" />
-            <span class="h5">{{user.username}}</span>
-            {% if user.is_staff or user.is_superuser %}
+            <img alt="avatar" src="{{ userprofile.default_image }}" class="image--sm" />
+            <span class="h5">{{ userprofile.user.username }}</span>
+            {% if userprofile.user.is_staff or userprofile.user.is_superuser %}
             <span>Moderator</span>
             {% else %}
             <span>Member</span>
@@ -14,14 +14,28 @@
         <div class="text-block">
             <ul class="menu-vertical">
                 <li>
-                    <a href="{% url 'profile' %}">Thread Started: {{ num_started_threads }}</a>
+                    <a href="#">Thread Started: {{ num_started_threads }}</a>
                 </li>
                 <li>
-                    <a href="{% url 'password_change' %}">Comments: {{ num_comments }}</a>
+                    <a href="#">Comments: {{ num_comments }}</a>
                 </li>
                 <li>
-                    <a href="#">Followers: #</a>
+                    <a href="#">Following: {{ number_of_following }}</a>
                 </li>
+                <li>
+                    <a href="#">Followers: {{ number_of_followers }}</a>
+                </li>
+                {% if user.is_authenticated %}
+                    {% if is_following %}
+                    <li>
+                        <a href="{% url 'add_or_remove_friend' 'remove' userprofile.slug %}">Remove Friend</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="{% url 'add_or_remove_friend' 'add' userprofile.slug %}">Add Friend</a>
+                    </li>
+                    {% endif %}
+                {% endif %}
             </ul>
         </div>
     </div>

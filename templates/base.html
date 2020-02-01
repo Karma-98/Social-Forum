@@ -52,6 +52,7 @@
                                         <li> <a href="{% url 'home' %}">Home</a> </li>
                                         {% if user.is_authenticated %}
                                         <li> <a href="{% url 'thread_create' %}">Create New Thread</a></li>
+                                        <li> <a href="{% url 'profile' %}">Profile</a></li>
                                         <li> <a href="{% url 'logout' %}">Logout</a> </li>
                                         {% else %}
                                         <li> <a href="{% url 'signup' %}">Register</a> </li>

@@ -11,7 +11,7 @@ from imagekit.processors import SmartResize
 
 class UserProfile(models.Model):
     ''' User description'''
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='userprofile')
     bio = HTMLField(blank=True, null=True)
     photo = ProcessedImageField(upload_to='accounts',
                                 format='JPEG',
