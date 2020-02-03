@@ -1,7 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import redirect
-from django.views import generic
+from django.shortcuts import redirect, render
 from .models import FollowerSystem
 
 # Create your views here.
@@ -20,25 +19,28 @@ def add_or_remove_friend(request, operation, slug):
 
     return redirect('profile')
 
-# @login_required
-# def friend_list(request, operation, slug):
-#     # If the operation(get from url) is as follows get context
+@login_required
+def follower_following_list(request, operation):
+    # If the operation(get from url) is as follows get context
 
-#     if operation == 'followers_list':
-#         try:
-#             followers_list = FollowerSystem.objects.get(
-#                 current_user=request.user
-#                 ).friends.all()
+    template = 'follow_system/follower_following_list.html'
 
-#         except FollowerSystem.DoesNotExist:
-#             followers_list = 'You have no followers yet'
+    if operation == 'followers_list':
 
-#     if operation == 'following_list':
-#         following_list = FollowerSystem.objects.filter(
-#             friends=request.user
-#         ).all()
+        f_list = FollowerSystem.objects.filter(
+            friend=request.user
+        ).all()
 
-    
+    elif operation == 'following_list':
+        following, created = FollowerSystem.objects.get_or_create(
+            current_user=request.user
+        )
 
-    
+        f_list = following.friend.all()
+
+        
+
+    args = {'f_list': f_list}
+
+    return render(request, template, args)
 

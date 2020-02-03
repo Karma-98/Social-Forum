@@ -17,10 +17,10 @@
                     <a href="{% url 'profile' %}">Profile</a>
                 </li>
                 <li>
-                    <a href="#">Following: {{ number_of_following }}</a>
+                    <a href="{% url 'follower_following_list'  'following_list' %}">Following: {{ number_of_following }}</a>
                 </li>
                 <li>
-                    <a href="#">Followers: {{ number_of_followers }}</a>
+                    <a href="{% url 'follower_following_list'  'followers_list' %}">Followers: {{ number_of_followers }}</a>
                 </li>
                 <li>
                     <a href="{% url 'password_change' %}">Password</a>
