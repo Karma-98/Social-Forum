@@ -105,9 +105,10 @@ class OtherProfileView(generic.DetailView):
         context['num_comments'] = User.objects.get(
             userprofile__slug=self.kwargs.get('slug')).comments.count()
 
-        context['is_following'] = FollowerSystem.objects.filter(
-            current_user=self.request.user, friend__userprofile__slug=self.kwargs.get('slug')
-            ).exists()
+        if self.request.user.is_authenticated:
+            context['is_following'] = FollowerSystem.objects.filter(
+                current_user=self.request.user, friend__userprofile__slug=self.kwargs.get('slug')
+                ).exists()
 
         # try:
         #     context['number_of_following'] = FollowerSystem.objects.get(
