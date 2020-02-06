@@ -3,60 +3,72 @@
 {% load static %}
 
 {% block content %}
-<section class="container-fluid">
-    <div class="mb-5">
+
+<section class="bg--secondary space--sm conversation">
+    <div class="container">
         <div class="row">
-            <div class="col-md-10 mx-auto">
-                <h3 class="mb-3">{{ threaddetail.title }} &nbsp; 
-                    <span class="mx-3">{{ threaddetail.created_at }}</span> 
+            <div class="col-lg-12">
+                <div class="conversation__head boxed boxed--lg bg--primary">
+                    <h4 class="font-weight-bold">{{ threaddetail.title }}</h4>
                     <span>
-                        {% if threaddetail.user != user %}
-                        <a href="{% url 'other_profile' threaddetail.user.userprofile.slug %}">{{ threaddetail.user }}</a>
-                        {% else %} 
-                        {{ threaddetail.user }} 
-                        {% endif %}
+                        {{ threaddetail.created_at }}
                     </span>
-                </h3>
-                <p>{{ threaddetail.text }}</p>
-            </div>
-        </div>
-    </div>
-
-    {% for comment in comments.all %}
-    <div class="boxed boxed--lg boxed--border">
-        <div class="row">
-            <div class="col-md-10 mx-auto">
-                <p>{{ comment.text }}</p>
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-</section>
-
-{% if user.is_authenticated %}
-<section class="container">
-    <div class="modal-instance">
-        <a class="btn modal-trigger" href="#">
-            <span class="btn__text">
-                TRIGGER MODAL
-            </span>
-        </a>
-        <div class="modal-container">
-            <div class="modal-content">
-                <div class="boxed boxed--lg">
-                    <h2>New Comment</h2>
-                    <hr class="short">
-                    
-                    <form method="post">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit" class="btn btn--primary type--uppercase">Submit</button>
-                    </form>
+                    <p class="pt-4">{{ threaddetail.text }}</p>
+                    <div class="conversation__avatar">
+                        <img alt="Image" src="{{ threaddetail.user.userprofile.default_image }}" />
+                        
+                        <span>
+                            <em>by</em>
+                            {% if threaddetail.user != user %}
+                            <a href="{% url 'other_profile' threaddetail.user.userprofile.slug %}">{{ threaddetail.user }}</a>
+                            {% else %} 
+                            {{ threaddetail.user }} 
+                            {% endif %}
+                        </span>
+                    </div>
                 </div>
+                {% if user.is_authenticated %}
+                <div class="conversation__reply boxed boxed--border">
+                    <div class="row">
+                        <div class="col-md-9 mx-auto">
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-primary btn-sm type--uppercase">Submit</button>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="comments conversation__comments">
+                    <ul class="comments__list">
+                        {% for comment in comments.all %}
+                        <li>
+                            <div class="comment">
+                                <div class="comment__avatar">
+                                    <img alt="Image" src="{{ threaddetail.user.userprofile.default_image }}" />
+                                </div>
+                                <div class="comment__body">
+                                    <h5 class="type--fine-print">{{ comment.user }}</h5>
+                                    <div class="comment__meta">
+                                        <span>{{ comment.created_at }}</span>
+                                    </div>
+                                    <p>
+                                        {{ comment.text }}
+                                    </p>
+                                </div>
+                            </div>
+                            <!--end comment-->
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!--end comments-->
             </div>
         </div>
+        <!--end of row-->
     </div>
+    <!--end of container-->
 </section>
-{% endif %}
 
 {% endblock %}

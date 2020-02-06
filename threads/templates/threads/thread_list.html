@@ -4,54 +4,55 @@
 
 {% block content %}
 
-{% for thread in threadpost %}
-<section class="space--xs blog-article-wide">
-    <div class="container">
-        <div class="row cta cta--horizontal text-center-xs">
-            <div class="col-md-3">
-                <h4>{{ thread.created_at }}</h4>
-            </div>
-            <div class="col-md-3">
-                <p class="lead">
-                    {{ thread.title }}
-                </p>
-            </div>
-            <div class="col-md-3 text-right text-center-xs">
-                <p class="lead">Comments: {{ thread.num_comments }}</p>
-            </div>
-            <div class="col-md-3 text-right text-center-xs">
-                <a class="btn type--uppercase" href="{% url 'thread_detail' thread.slug %}">
-                    <span class="btn__text">
-                        Read
-                    </span>
-                </a>
-            </div>
-        </div>
-        <!--end of row-->
-    </div>
-    <!--end of container-->
-</section>
-{% endfor %}
-<section>
+
+<section class="space--sm">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="pagination">
-                    <a class="pagination__prev" href="#" title="Previous Page">&laquo;</a>
-                    <ol>
-                        <li>
-                            <a href="#">1</a>
-                        </li>
-                        <li>
-                            <a href="#">2</a>
-                        </li>
-                        <li class="pagination__current">3</li>
-                        <li>
-                            <a href="#">4</a>
-                        </li>
-                    </ol>
-                    <a class="pagination__next" href="#" title="Next Page">&raquo;</a>
+                <div class="masonry">
+                    <div class="masonry-filter-container d-flex align-items-center">
+                        <span>Category:</span>
+                        <div class="masonry-filter-holder">
+                            <div class="masonry__filters" data-filter-all-text="All Categories"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="masonry__container row">
+                        <div class="masonry__item col-lg-4 col-md-6"></div>
+                        {% for thread in threadpost %}
+                        <div class="masonry__item col-lg-4 col-md-6" data-masonry-filter="Marketing">
+                            <article class="feature feature-1">
+                                <div class="feature__body boxed boxed--border">
+                                    <span>{{ thread.created_at }}</span>
+                                    <h5>{{ thread.title }}</h5>
+                                    <p>Comments: {{ thread.num_comments }}</p>
+                                    <a href="{% url 'thread_detail' thread.slug %}">
+                                        Read More
+                                    </a>
+                                </div>
+                            </article>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!--end of masonry container-->
+                    <div class="pagination">
+                        <a class="pagination__prev" href="#" title="Previous Page">&laquo;</a>
+                        <ol>
+                            <li>
+                                <a href="#">1</a>
+                            </li>
+                            <li>
+                                <a href="#">2</a>
+                            </li>
+                            <li class="pagination__current">3</li>
+                            <li>
+                                <a href="#">4</a>
+                            </li>
+                        </ol>
+                        <a class="pagination__next" href="#" title="Next Page">&raquo;</a>
+                    </div>
                 </div>
+                <!--end masonry-->
             </div>
         </div>
         <!--end of row-->
