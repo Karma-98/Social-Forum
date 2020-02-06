@@ -53,7 +53,7 @@ class ThreadListView(generic.ListView):
     context_object_name = "threadpost"
     ordering = ['-created_at']
     # TO-DO: Pagination
-
+    paginate_by = 9
     queryset = ThreadPost.objects.annotate(
         num_comments=Count('thread_comments')
     )

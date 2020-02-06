@@ -27,9 +27,10 @@ def follower_following_list(request, operation):
 
     if operation == 'followers_list':
 
-        f_list = FollowerSystem.objects.filter(
+        f_relationship = FollowerSystem.objects.filter(
             friend=request.user
-        ).all()
+        )
+        f_list = [f.current_user for f in f_relationship]
 
     elif operation == 'following_list':
         following, created = FollowerSystem.objects.get_or_create(
@@ -38,9 +39,6 @@ def follower_following_list(request, operation):
 
         f_list = following.friend.all()
 
-        
-
     args = {'f_list': f_list}
 
     return render(request, template, args)
-

@@ -10,13 +10,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="masonry">
-                    <div class="masonry-filter-container d-flex align-items-center">
-                        <span>Category:</span>
-                        <div class="masonry-filter-holder">
-                            <div class="masonry__filters" data-filter-all-text="All Categories"></div>
-                        </div>
-                    </div>
-                    <hr>
+                    
                     <div class="masonry__container row">
                         <div class="masonry__item col-lg-4 col-md-6"></div>
                         {% for thread in threadpost %}
@@ -35,22 +29,25 @@
                         {% endfor %}
                     </div>
                     <!--end of masonry container-->
+                    {% if is_paginated %}
                     <div class="pagination">
                         <a class="pagination__prev" href="#" title="Previous Page">&laquo;</a>
                         <ol>
+                            {% if page_obj.has_previous %}
                             <li>
-                                <a href="#">1</a>
+                                <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
                             </li>
+                            {% endif %}
+                            <li class="pagination__current">{{ page_obj.number }}</li>
+                            {% if page_obj.has_next %}
                             <li>
-                                <a href="#">2</a>
+                                <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
                             </li>
-                            <li class="pagination__current">3</li>
-                            <li>
-                                <a href="#">4</a>
-                            </li>
+                            {% endif %}
                         </ol>
                         <a class="pagination__next" href="#" title="Next Page">&raquo;</a>
                     </div>
+                    {% endif %}
                 </div>
                 <!--end masonry-->
             </div>
