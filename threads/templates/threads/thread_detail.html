@@ -23,6 +23,8 @@
                             <a href="{% url 'other_profile' threaddetail.user.userprofile.slug %}">{{ threaddetail.user }}</a>
                             {% else %} 
                             {{ threaddetail.user }} 
+                            <br>
+                            <a href="{% url 'thread_update' threaddetail.slug %}">Update</a>
                             {% endif %}
                         </span>
                     </div>

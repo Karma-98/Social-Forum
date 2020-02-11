@@ -72,21 +72,12 @@ class ThreadCreateView(LoginRequiredMixin, generic.CreateView):
 
 
 class ThreadUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = ThreadPost
     template_name = 'threads/thread_update.html'
     form_class = ThreadPostForm
 
     def get_success_url(self):
-        return reverse('thread_detail', kwargs={'slug': self.get_object.slug})
-        # Note that self.objects.slug here doesnt work as the slug will be
-        # updated and you will be getting the old slug
-
-
-class ThreadDeleteView(LoginRequiredMixin, generic.DeleteView):
-    template_name = 'threads/thread_delete.html'
-    success_url = reverse_lazy('home')
-
-    def get_object(self):
-        return get_object_or_404(ThreadPost, slug=self.object.slug)
+        return reverse('thread_detail', kwargs={'slug': self.object.slug})
 
 
 class UserThreadListView(LoginRequiredMixin, generic.ListView):
